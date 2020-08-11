@@ -34,7 +34,7 @@ export class Recipe extends Document {
   })
   votes;
   @Prop({
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true
   })
   owner;

@@ -17,23 +17,23 @@ export class RecipesService {
     return this.recipeModel.find().exec();
   }
 
-  async getRecipeById(_id: string): Promise<Recipe>{
+  async getRecipeById(_id: string): Promise<Recipe> {
     return this.recipeModel.findById(_id).exec();
   }
 
-  async getTopN(top:number = 5): Promise<Array<Recipe>>{
-    return this.recipeModel.find({top}).exec()
+  async getTopN(top: number = 5): Promise<Array<Recipe>> {
+    return this.recipeModel.find({ top }).exec()
   }
 
-  async getRecipesByUser(owner: string): Promise<Array<Recipe>>{
-    return this.recipeModel.find({owner})
+  async getRecipesByUser(owner: string): Promise<Array<Recipe>> {
+    return this.recipeModel.find({ owner })
   }
 
-  async updateById(recipe: Recipe): Promise<Recipe>{
-    return this.recipeModel.findByIdAndUpdate(recipe,recipe._id).exec();
+  async updateRecipe(recipe: Recipe): Promise<Recipe> {
+    return this.recipeModel.findByIdAndUpdate(recipe._id, recipe).exec();
   }
 
-  async deleteById(_id: string): Promise<Recipe>{
+  async deleteRecipe(_id: string): Promise<Recipe> {
     return this.recipeModel.findByIdAndDelete(_id).exec();
   }
 }
