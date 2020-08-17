@@ -14,8 +14,8 @@ export class RecipesController {
     @Res() res: Response
   ): Promise<void> {
     this.service.addRecipe(body).then((recipe: Recipe) => {
-      if (!recipe) return res.status(HttpStatus.NOT_FOUND).json(data<null>(
-        null, HttpStatus.NOT_FOUND
+      if (!recipe) return res.status(HttpStatus.BAD_REQUEST).json(data<null>(
+        null, HttpStatus.BAD_REQUEST, false
       ));
       res.status(HttpStatus.OK).json(data<Recipe>(recipe));
     }, err => {

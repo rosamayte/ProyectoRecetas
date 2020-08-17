@@ -34,6 +34,7 @@ export class Recipe extends Document {
   })
   votes;
   @Prop({
+    // type: mongoose.Schema.Types.ObjectId,
     type: String,
     required: true
   })

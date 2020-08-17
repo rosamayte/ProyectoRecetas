@@ -1,4 +1,4 @@
-export class CreateRecipeDto{
+export class CreateRecipeDto {
   name: string;
   description: string;
   ingredients: Array<{ quantity: number, name: string }>;
