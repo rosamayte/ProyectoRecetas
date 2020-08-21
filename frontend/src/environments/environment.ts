@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  recipes_url: 'http://25.68.31.39:3000/recipes/',
+  users_url: 'http://25.68.31.39:3000/users/',
+  auth_url: 'http://25.68.31.39:3000/auth/'
 };
 
 /*

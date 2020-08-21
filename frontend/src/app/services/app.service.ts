@@ -8,21 +8,25 @@ export class AppService {
   private _id = new BehaviorSubject(null)
   public userid = this._id.asObservable()
 
-  constructor() { }
-
-  public checkUser = ()=> {
-    const userid = localStorage.getItem("userid");
-    if(userid) return userid;
-    return null;
+  constructor() {
+    const userid = sessionStorage.getItem('userid') || localStorage.getItem('userid');
+    this.login(userid)
   }
 
+  // public checkUser = () => {
+  //   if (this.userid) return this.userid;
+  //   return null;
+  // }
+
   public logout = () => {
+    sessionStorage.clear();
     localStorage.clear();
     this._id.next(null)
   }
 
-  public login = (uid) => {
-    localStorage.setItem('userid', uid)
+  public login = (uid, keepSession = false) => {
+    sessionStorage.setItem('userid', uid)
+    if(keepSession) localStorage.setItem('userid', uid)
     this._id.next(uid)
   }
 

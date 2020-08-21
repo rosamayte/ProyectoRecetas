@@ -1,23 +1,23 @@
-<div class="shadow p-3 mb-5 bg-white rounded border-dark"style=" margin-left: 35%; width: 30%;margin-top: 10%;">
-  <div class="card border-success" >
+<div class="shadow p-3 mb-5 bg-white rounded border-dark" style=" margin-left: 35%; width: 30%;margin-top: 10%;">
+  <div class="card border-success">
     <div class="card-body">
       <h5 class="card-title text-center">Login</h5>
-      <form>
+      <form [formGroup]="loginForm">
         <div class="form-group">
           <label for="exampleInputEmail1">User</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <input type="email" class="form-control" id="exampleInputEmail1" formControlName="user" >
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
         </div>
         <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Keep me logged in. </label>
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="keepSession">
+          <label class="form-check-label" for="exampleCheck1" >Keep me logged in. </label>
         </div>
       </form>
       <button class="card-link btn btn-secondary" (click)="login()">Login</button>
-      <button class="card-link btn btn-secondary">Register</button>
+      <button class="card-link btn btn-secondary" (click)="register()">Register</button>
     </div>
   </div>
 </div>

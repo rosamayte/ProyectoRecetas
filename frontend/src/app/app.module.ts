@@ -13,6 +13,7 @@ import { ViewRecipeComponent } from './pages/view-recipe/view-recipe.component';
 import { SearchRecipesComponent } from './pages/search-recipes/search-recipes.component';
 import { NavbarComponent } from './helpers/navbar/navbar.component';
 import { SearchUsersComponent } from './pages/search-users/search-users.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SearchUsersComponent } from './pages/search-users/search-users.componen
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
