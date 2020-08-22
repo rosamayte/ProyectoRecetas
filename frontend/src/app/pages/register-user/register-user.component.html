@@ -12,20 +12,14 @@
           <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" [ngClass]="{'is-valid': !password.invalid, 'is-invalid':password.invalid}">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Confirm Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" formControlName="cpassword" [ngClass]="{'is-valid': !cpassword.hasError('passwordNotMatching'), 'is-invalid':cpassword.hasError('passwordNotMatching')}">
+          <label for="exampleInputPassword2">Confirm Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword2" formControlName="cpassword" [ngClass]="{'is-valid': cpassword.value === password.value, 'is-invalid': cpassword.value !== password.value}">
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Info</label>
-          <input type="password" class="form-control" id="exampleInputEmail1" formControlName="info" [ngClass]="{'is-valid': !info.invalid, 'is-invalid':info.invalid}">
+          <label for="exampleInputEmail2">Info</label>
+          <input type="password" class="form-control" id="exampleInputEmail2" formControlName="info">
         </div>
-
-        <!-- <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="keepSession">
-          <label class="form-check-label" for="exampleCheck1" >Keep me logged in. </label>
-        </div> -->
       </form>
-      <!-- <button class="card-link btn btn-secondary" (click)="login()">Login</button> -->
       <button class="card-link btn btn-secondary" [disabled]="registerForm.invalid" (click)="register()">Register</button>
     </div>
   </div>

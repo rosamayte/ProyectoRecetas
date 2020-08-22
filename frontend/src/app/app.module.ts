@@ -14,6 +14,7 @@ import { SearchRecipesComponent } from './pages/search-recipes/search-recipes.co
 import { NavbarComponent } from './helpers/navbar/navbar.component';
 import { SearchUsersComponent } from './pages/search-users/search-users.component';
 import { HttpClientModule } from '@angular/common/http';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2'
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
