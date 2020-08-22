@@ -4,13 +4,15 @@ import { AppService } from './app.service';
 import { RecipesModule } from './recipes/recipes.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     RecipesModule, 
     UsersModule,
-    MongooseModule.forRoot('mongodb://localhost:27.0.17/recipes', 
-    {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}), UsersModule
+    AuthModule,
+    MongooseModule.forRoot('mongodb://localhost:27017/recipes', 
+    {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
   ],
   controllers: [AppController],
   providers: [AppService],

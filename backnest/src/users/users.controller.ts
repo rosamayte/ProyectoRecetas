@@ -1,8 +1,9 @@
-import { Controller, Post, Body, Res, HttpStatus, Get, Patch, Delete, Param, HttpCode } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Get, Patch, Delete, Param, HttpCode, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from 'src/schemas/user';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { data } from 'src/app.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -17,6 +18,7 @@ export class UsersController {
       if (!user) return res.status(HttpStatus.BAD_REQUEST).json(data(
         null, HttpStatus.BAD_REQUEST, false
       ));
+      user.password = undefined
       res.status(HttpStatus.OK).json(data(
         user
       ));
@@ -48,11 +50,20 @@ export class UsersController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getUserById(
     @Param('id') id: string,
-    @Res() res: Response
+    @Res() res: Response,
+    @Req() req: Request
   ): Promise<void> {
+    // console.log('req \n',req.user)
+    if(req.user['JsonWebTokenError']) {
+      res.status(HttpStatus.UNAUTHORIZED).json(data(
+        req.user['JsonWebTokenError'], HttpStatus.UNAUTHORIZED, false
+      ));
+      return
+    }
     this.service.getUserById(id).then((user: User) => {
       if (!user) return res.status(HttpStatus.NOT_FOUND).json(data(
         null, HttpStatus.NOT_FOUND
