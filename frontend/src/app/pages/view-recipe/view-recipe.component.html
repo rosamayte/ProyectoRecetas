@@ -1,1 +1,65 @@
-<p>view-recipe works!</p>
+<div class="container pl-pr-5">
+  <ng-container *ngIf="recipe; else elseTemplate">
+    <div class="row mt-3">
+      <div class="col-9">
+        <h1 class="font-weight-bold text-capitalize text-break"
+          style="font-size:60px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+          {{recipe.name}}</h1>
+      </div>
+      <div class="col" style="text-align:end;">
+        <ng-container *ngIf="recipe.votes != 0; else elseTemplate">
+          <i class="fas fa-star fa-2x fa-lg pt-4"></i>
+          <i class="fas fa-star fa-2x fa-lg"></i>
+          <i class="fas fa-star fa-2x fa-lg"></i>
+          <i class="fas fa-star fa-2x fa-lg"></i>
+          <i class="fas fa-star fa-2x fa-lg"></i>
+          <!-- {{recipe.votes}} -->
+        </ng-container>
+        <ng-template #elseTemplate>
+          No Rated
+        </ng-template>
+      </div>
+    </div>
+    <div class="row text-capitalize pl-5 font-italic">
+      By&nbsp;<a [routerLink]="[ '/profile', userid ]"> user name</a>
+    </div>
+    <div class="row mt-5">
+      <div class="col pl-4">
+        <h2 class="font-weight-bold text-capitalize text-break"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Description</h2>
+        <p class="text-justify pl-2">{{recipe.description}}</p>
+      </div>
+      <div class="col">
+        {{picture}}        
+      </div>
+    </div>
+    <hr style="border-color: darkgrey;">
+    <div class="row  pr-4 text-break">
+      <div class="col pl-4">
+        <h2 class="mt-2 font-weight-bold text-capitalize text-break"
+          style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Ingredients</h2>
+      </div>
+      <div class="w-100"></div>
+      <div class="col" >
+        <ul class="mt-2 pl-8" *ngFor="let item of recipe.ingredients">
+          <li>{{item.quantity}}&nbsp;{{item.name}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row pr-4 text-break">
+      <div class="row pl-4">
+        <h2 class="mt-2 pl-3 font-weight-bold text-capitalize text-break"
+        style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Preparation</h2>
+      </div>
+      <div class="w-100"></div>
+      <div class="row pl-4">
+        <p class="mt-2 pl-4 text-justify">{{recipe.steps}}</p>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    no recipe
+  </ng-template>
+
+  <!-- <a [routerLink]="[ '/recipes']">back</a> -->
+</div>

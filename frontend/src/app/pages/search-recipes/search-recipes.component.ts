@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipesService } from '../../services/recipes.service'
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-search-recipes',
@@ -9,6 +12,7 @@ export class SearchRecipesComponent implements OnInit {
   private apidata: Array<any>;
   public showdata: Array<Array<any>> = [];
   public quantity: number;
+  public imagesUrl = environment.images_url;
 
   public sort = {
     name: 0,
@@ -37,7 +41,8 @@ export class SearchRecipesComponent implements OnInit {
 
   public changeSize = (value: number): void => {
     this.pagination.size = value;
-    this.paginate(this.apidata)
+    this.pagination.page = 0;
+    this.paginate(this.apidata);
   }
 
   public search = (value: string): void => {
@@ -45,10 +50,23 @@ export class SearchRecipesComponent implements OnInit {
     this.paginate(temp);
   }
 
-  constructor() { }
+  public goToRecipe(id: string) {
+    this.router.navigate(['recipe', id]);
+  }
+
+  constructor(
+    private recipeService: RecipesService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-
+    this.recipeService.getRecipes().subscribe((data: any) => {
+      this.apidata = data.body;
+      this.quantity = data.body.length;
+      this.paginate(data.body);
+    }, error => {
+      console.log(error);
+    })
   }
 
   private paginate = async (array: Array<any>): Promise<void> => {
