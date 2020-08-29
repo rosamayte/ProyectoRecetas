@@ -1,36 +1,37 @@
 <div class="container pl-pr-5">
   <ng-container *ngIf="recipe; else elseTemplate">
     <div class="row mt-3">
-      <div class="col-9">
+      <div class="col">
         <h1 class="font-weight-bold text-capitalize text-break"
           style="font-size:60px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
           {{recipe.name}}</h1>
       </div>
-      <div class="col" style="text-align:end;">
-        <ng-container *ngIf="recipe.votes != 0; else elseTemplate">
-          <i class="fas fa-star fa-2x fa-lg pt-4"></i>
-          <i class="fas fa-star fa-2x fa-lg"></i>
-          <i class="fas fa-star fa-2x fa-lg"></i>
-          <i class="fas fa-star fa-2x fa-lg"></i>
-          <i class="fas fa-star fa-2x fa-lg"></i>
-          <!-- {{recipe.votes}} -->
+    </div>
+    <div class="row text-capitalize pl-5 font-italic" *ngIf="owner">
+      <div class="col-6">
+        By&nbsp;<a [routerLink]="[ '/profile', recipe.owner ]">{{owner.name}}</a>
+      </div>
+      <div class="col-6" style="text-align:end;">
+        <ng-container *ngIf="stars.length===5; else elseTemplate">
+          <span *ngFor="let star of stars; let i=index">
+            <i class="fa-3x fa-lg pt-4"
+            [ngClass]="{'fas': stars[i]>-1,'far':stars[i]===-1,'fa-star': stars[i]!==0, 'fa-star-half-alt': stars[i]===0}" (click)="voteUp(i)"
+            ></i>
+          </span>
         </ng-container>
         <ng-template #elseTemplate>
           No Rated
         </ng-template>
       </div>
     </div>
-    <div class="row text-capitalize pl-5 font-italic">
-      By&nbsp;<a [routerLink]="[ '/profile', userid ]"> user name</a>
-    </div>
     <div class="row mt-5">
-      <div class="col pl-4">
+      <div class="col-6 pl-4">
         <h2 class="font-weight-bold text-capitalize text-break"
           style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Description</h2>
         <p class="text-justify pl-2">{{recipe.description}}</p>
       </div>
-      <div class="col">
-        {{picture}}        
+      <div class="col-6 text-center pt-4">
+        <img src="{{imagesUrl+recipe.picture}}" class="rounded mx-auto d-block">      
       </div>
     </div>
     <hr style="border-color: darkgrey;">

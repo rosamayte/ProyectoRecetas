@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators'
 })
 export class UsersService {
 
-  private headers
+  private headers;
 
   constructor(
     private httpClient: HttpClient
@@ -20,5 +20,9 @@ export class UsersService {
 
   public create(body: IUser): Observable<any> {
     return this.httpClient.post(`${environment.users_url}`, body).pipe(map(data => data))
+  }
+
+  public getUser(id: string): Observable<any>{
+    return this.httpClient.get(`${environment.users_url}${id}`).pipe(map(data => data))
   }
 }
