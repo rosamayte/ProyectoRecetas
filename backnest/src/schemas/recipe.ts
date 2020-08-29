@@ -35,7 +35,7 @@ export class Recipe extends Document {
   picture;
  
   @Prop({
-    type: Number,
+    type: [Number],
     default: 0
   })
   votes;

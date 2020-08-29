@@ -4,7 +4,7 @@ export interface IRecipes {
   ingredients: Array<{ quantity: number, name: string }>;
   steps: string;
   picture: string;
-  votes: number;
+  votes: Array<number>;
   owner: string;
   date: Date;
 }

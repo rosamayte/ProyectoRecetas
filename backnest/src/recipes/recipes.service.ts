@@ -33,6 +33,18 @@ export class RecipesService {
     return this.recipeModel.findByIdAndUpdate(recipe._id, recipe).exec();
   }
 
+  async voteUp(id: string, v: number): Promise<Recipe> {
+    const r = await this.recipeModel.findById(id);
+    if (!r) return null;
+    r.votes[0] += await v;
+    await r.votes[1]++;
+    return await r.save();
+  }
+
+  async voteDown(id: string): Promise<Recipe> {
+    return null;
+  }
+
   async deleteRecipe(_id: string): Promise<Recipe> {
     return this.recipeModel.findByIdAndDelete(_id).exec();
   }

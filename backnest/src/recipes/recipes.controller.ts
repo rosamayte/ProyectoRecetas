@@ -121,6 +121,36 @@ export class RecipesController {
     });
   }
 
+  @Patch('voteup')
+  async voteUp(
+    @Body() body: any,
+    @Res() res: Response
+  ): Promise<void> {
+    this.service.voteUp(body.id, body.v).then((recipe: Recipe) => {
+      if (!recipe) return res.status(HttpStatus.NOT_FOUND).json(data(
+        null, HttpStatus.NOT_FOUND
+      ));
+      res.status(HttpStatus.OK).json(data(
+        body
+      ));
+    }, err => {
+      if (err._message === "Recipe validation failed") return res.status(HttpStatus.BAD_REQUEST).json(data(
+        err, HttpStatus.BAD_REQUEST, false
+      ));
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(data(
+        err, HttpStatus.INTERNAL_SERVER_ERROR, false
+      ));
+    });
+  }
+
+  @Patch('votedown')
+  async voteDown(
+    @Body() body: any,
+    @Res() res: Response
+  ): Promise<void> {
+    
+  }
+
   @Delete(':id')
   async deleteRecipe(
     @Param('id') id: string,

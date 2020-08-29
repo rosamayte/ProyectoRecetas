@@ -50,7 +50,7 @@ export class UsersController {
     });
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getUserById(
     @Param('id') id: string,
@@ -58,7 +58,7 @@ export class UsersController {
     @Req() req: Request
   ): Promise<void> {
     // console.log('req \n',req.user)
-    if(req.user['JsonWebTokenError']) {
+    if(req.user && req.user['JsonWebTokenError']) {
       res.status(HttpStatus.UNAUTHORIZED).json(data(
         req.user['JsonWebTokenError'], HttpStatus.UNAUTHORIZED, false
       ));
