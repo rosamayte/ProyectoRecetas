@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-import { RecipesController } from './recipes.controller';
-import { RecipesService } from './recipes.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Recipe, RecipeSchema } from 'src/schemas/recipe';
+import { UploadController } from './upload.controller';
+import { UploadService } from './upload.service';
 import { MulterModule } from '@nestjs/platform-express';
 import * as multer from 'multer';
 
 @Module({
+  controllers: [UploadController],
+  providers: [UploadService],
   imports: [
-    MongooseModule.forFeature([{name: Recipe.name, schema: RecipeSchema}]),
     MulterModule.register({
       storage: multer.diskStorage({
         destination: (req, file, cb) => {
@@ -18,8 +17,6 @@ import * as multer from 'multer';
         }
       })
     })
-  ],
-  controllers: [RecipesController],
-  providers: [RecipesService]
+  ]
 })
-export class RecipesModule {}
+export class UploadModule { }

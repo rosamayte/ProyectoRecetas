@@ -33,11 +33,23 @@ export class RecipesService {
     return this.recipeModel.findByIdAndUpdate(recipe._id, recipe).exec();
   }
 
+  async setImage(id: string, name: string): Promise<Recipe> {
+    const r = await this.recipeModel.findById(id);
+    if (!r) return null;
+    r.picture = await name;
+    return await r.save()
+  }
+
   async voteUp(id: string, v: number): Promise<Recipe> {
     const r = await this.recipeModel.findById(id);
     if (!r) return null;
-    r.votes[0] += await v;
-    await r.votes[1]++;
+    // const nv = await r.votes
+    // nv[0] += await v;
+    // await nv[1]++;
+    // r.votes = nv
+    // return await this.recipeModel.findByIdAndUpdate(id,r).exec();
+    r.votes.set(0,r.votes[0]+v);
+    r.votes.set(1,r.votes[1]+1);
     return await r.save();
   }
 

@@ -1,8 +1,9 @@
-import { Controller, Post, Body, Res, HttpStatus, Get, Patch, Delete, Param } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Get, Patch, Delete, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { RecipesService } from './recipes.service';
 import { Recipe } from 'src/schemas/recipe';
 import { Response } from 'express';
 import { data } from 'src/app.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('recipes')
 export class RecipesController {
@@ -24,6 +25,31 @@ export class RecipesController {
       ));
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(data(
         err, HttpStatus.INTERNAL_SERVER_ERROR, false
+      ));
+    });
+  }
+
+  @Patch('image/:id')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadImage(
+    @UploadedFile() image,
+    @Res() res: Response,
+    @Param('id') id: string
+  ) {
+    if (!image)
+      return res.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).json(data(
+        null, HttpStatus.UNSUPPORTED_MEDIA_TYPE, false
+      ));
+    this.service.setImage(id, image.originalname).then((r: Recipe) => {
+      if (!r) return res.status(HttpStatus.NOT_FOUND).json(data(
+        null, HttpStatus.NOT_FOUND
+      ));
+      res.status(HttpStatus.OK).json(data(
+        r
+      ));
+    }, err => {
+      res.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).json(data(
+        err, HttpStatus.UNSUPPORTED_MEDIA_TYPE, false
       ));
     });
   }
@@ -131,7 +157,7 @@ export class RecipesController {
         null, HttpStatus.NOT_FOUND
       ));
       res.status(HttpStatus.OK).json(data(
-        body
+        recipe
       ));
     }, err => {
       if (err._message === "Recipe validation failed") return res.status(HttpStatus.BAD_REQUEST).json(data(
@@ -148,7 +174,7 @@ export class RecipesController {
     @Body() body: any,
     @Res() res: Response
   ): Promise<void> {
-    
+
   }
 
   @Delete(':id')

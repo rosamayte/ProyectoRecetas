@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import {ServeStaticModule} from '@nestjs/serve-static'
 import { join } from 'path';
+import { UploadModule } from './upload/upload.module';
+
 
 @Module({
   imports: [
@@ -15,9 +17,11 @@ import { join } from 'path';
     AuthModule,
     ServeStaticModule.forRoot({rootPath: join(__dirname,'..','public')}),
     MongooseModule.forRoot('mongodb://localhost:27017/recipes', 
-    {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+    {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}),
+    UploadModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
