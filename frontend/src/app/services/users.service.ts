@@ -18,6 +18,10 @@ export class UsersService {
     this.headers = { headers: { 'Content-Type': 'application/json' } };
   }
 
+  public getUsers = () => {
+    return this.httpClient.get(`${environment.users_url}`).pipe(map(data => data));
+  }
+
   public create(body: IUser): Observable<any> {
     return this.httpClient.post(`${environment.users_url}`, body).pipe(map(data => data))
   }
