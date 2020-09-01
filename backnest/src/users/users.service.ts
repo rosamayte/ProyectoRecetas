@@ -4,6 +4,7 @@ import { User } from 'src/schemas/user';
 import { Model } from 'mongoose';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
+import { UsersModule } from './users.module';
 
 @Injectable()
 export class UsersService {
@@ -30,6 +31,13 @@ export class UsersService {
 
   async updateUser(user: User): Promise<User> {
     return this.userModel.findByIdAndUpdate(user._id, user).exec();
+  }
+
+  async setImageProfile(id: string, name: string): Promise<User> {
+    const u = await this.userModel.findById(id);
+    if (!u) return null;
+    u.image = await name;
+    return await u.save()
   }
 
   async deleteUser(_id: string): Promise<User> {

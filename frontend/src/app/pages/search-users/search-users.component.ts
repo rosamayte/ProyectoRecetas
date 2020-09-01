@@ -13,9 +13,10 @@ export class SearchUsersComponent implements OnInit {
   // Vista de buscador 
   private apidata: Array<any>;
   public showdata: Array<Array<any>> = [];
-  //  
   public quantity: number;
+  //  
   public imagesUrl = environment.images_url;
+  public user = null;
 
   constructor(
     private userService: UsersService,
@@ -29,7 +30,7 @@ export class SearchUsersComponent implements OnInit {
       this.paginate(data.body);
     }, error => {
       console.log(error);
-    })
+    });
   }
 
   // Vista de buscador

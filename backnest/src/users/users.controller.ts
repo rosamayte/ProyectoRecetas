@@ -1,9 +1,10 @@
-import { Controller, Post, Body, Res, HttpStatus, Get, Patch, Delete, Param, HttpCode, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Get, Patch, Delete, Param, HttpCode, UseGuards, Req, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from 'src/schemas/user';
 import { Response, Request } from 'express';
 import { data } from 'src/app.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 export class UsersController {
@@ -96,6 +97,31 @@ export class UsersController {
       ));
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(data(
         err, HttpStatus.INTERNAL_SERVER_ERROR, false
+      ));
+    });
+  }
+
+  @Patch('image/:id')
+  @UseInterceptors(FileInterceptor('image'))
+  async uploadImageProfile(
+    @UploadedFile() image,
+    @Res() res: Response,
+    @Param('id') id: string
+  ) {
+    if (!image)
+      return res.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).json(data(
+        null, HttpStatus.UNSUPPORTED_MEDIA_TYPE, false
+      ));
+    this.service.setImageProfile(id, image.originalname).then((u: User) => {
+      if (!u) return res.status(HttpStatus.NOT_FOUND).json(data(
+        null, HttpStatus.NOT_FOUND
+      ));
+      res.status(HttpStatus.OK).json(data(
+        u
+      ));
+    }, err => {
+      res.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).json(data(
+        err, HttpStatus.UNSUPPORTED_MEDIA_TYPE, false
       ));
     });
   }

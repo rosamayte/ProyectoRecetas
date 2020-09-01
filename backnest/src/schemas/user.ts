@@ -3,7 +3,7 @@ import mongoose, { Document } from 'mongoose';
 
 @Schema()
 export class User extends Document {
-  
+
   @Prop({
     type: String,
     unique: true,
@@ -17,22 +17,34 @@ export class User extends Document {
     default: []
   })
   recipes;
-  
+
   @Prop({
     type: Number,
     default: 0
   })
   ranking;
-  
+
   @Prop({
     type: String,
     default: ""
   })
   info;
-  
+
   @Prop({
     type: String,
-    required:true
+    default: 'noImageProfile.jpg'
+  })
+  image;
+
+  @Prop({
+    type: [String],
+    default: []
+  })
+  networks;
+
+  @Prop({
+    type: String,
+    required: true
   })
   password;
 }
