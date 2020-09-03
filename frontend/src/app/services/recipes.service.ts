@@ -18,11 +18,15 @@ export class RecipesService {
     return this.httpClient.get(this.url).pipe(map(data => data));
   }
 
-  public getRecipeById = (id: string) =>{
+  public getRecipeById = (id: string) => {
     return this.httpClient.get(`${this.url}recipe/${id}`).pipe(map(data => data));
   }
 
-  public voteUp = (body)=>{
-    return this.httpClient.patch(`${this.url}voteup`,body).pipe(map(data => data));
+  public getRecipeByUser = (id: string) => {
+    return this.httpClient.get(`${this.url}user/${id}`).pipe(map(data => data));
+  }
+
+  public voteUp = (body) => {
+    return this.httpClient.patch(`${this.url}voteup`, body).pipe(map(data => data));
   }
 }

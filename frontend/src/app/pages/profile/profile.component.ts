@@ -40,8 +40,8 @@ export class ProfileComponent implements OnInit {
     this.userService.getUser(this.activatedRoute.snapshot.paramMap.get('id')).subscribe((data: any) => {
       this.user = data.body;
     }, error => console.log(error));
-
-    this.recipeService.getRecipes().subscribe((data2: any) => {
+    
+    this.recipeService.getRecipeByUser(this.activatedRoute.snapshot.paramMap.get('id')).subscribe((data2: any) => {
       this.apidata = data2.body;
       this.quantity = data2.body.length;
       this.paginate(data2.body);
