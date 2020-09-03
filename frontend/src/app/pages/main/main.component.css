@@ -1,0 +1,23 @@
+.stroke {
+  /* text-align:center; */
+  color: rgb(0, 0, 0);
+  background: rgb(0, 0, 0);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: auto;
+  letter-spacing: 2;
+  text-shadow: -2px -2px 2px #ffffff, 2px -2px 2px #ffffff, -2px 2px 2px #ffffff, 2px 2px 2px #ffffff;
+}
+
+.col-4{
+  padding-right: 0%;
+  padding-left: 0%;
+  flex: 0 0 31%;
+  max-width: 31%;
+  max-height: 250px;
+  margin: 8px;
+}
+
+.card-img-overlay{
+  top: auto;
+  right: auto;
+}
