@@ -15,7 +15,7 @@ export class ViewRecipeComponent implements OnInit {
   public recipe = null;
   public owner = null;
   public stars = [];
-  public imagesUrl = environment.images_url;
+  public imagesUrlRecipes = `${environment.images_url}recipes/`;
   private canVote = true;
 
   constructor(

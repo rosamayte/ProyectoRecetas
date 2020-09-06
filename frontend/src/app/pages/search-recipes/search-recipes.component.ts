@@ -12,7 +12,7 @@ export class SearchRecipesComponent implements OnInit {
   private apidata: Array<any>;
   public showdata: Array<Array<any>> = [];
   public quantity: number;
-  public imagesUrl = environment.images_url;
+  public imagesUrlRecipes = `${environment.images_url}recipes/`;
 
   public sort = {
     name: 0,

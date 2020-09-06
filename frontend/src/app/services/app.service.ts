@@ -5,12 +5,10 @@ import { observable, Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AppService {
-  private _id = new BehaviorSubject(null)
-  public userid = this._id.asObservable()
+  private tokenBs = new BehaviorSubject(null)
+  public tokenObs = this.tokenBs.asObservable()
 
   constructor() {
-    const userid = sessionStorage.getItem('userid') || localStorage.getItem('userid');
-    this.login(userid)
   }
 
   // public checkUser = () => {
@@ -21,13 +19,13 @@ export class AppService {
   public logout = () => {
     sessionStorage.clear();
     localStorage.clear();
-    this._id.next(null)
+    this.tokenBs.next(null)
   }
 
-  public login = (uid, keepSession = false) => {
-    sessionStorage.setItem('userid', uid)
-    if(keepSession) localStorage.setItem('userid', uid)
-    this._id.next(uid)
+  public login = (token, keepSession = false) => {
+    sessionStorage.setItem('token', token)
+    if (keepSession) localStorage.setItem('userid', token)
+    this.tokenBs.next(token)
   }
 
 }

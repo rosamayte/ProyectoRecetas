@@ -29,4 +29,8 @@ export class UsersService {
   public getUser(id: string): Observable<any>{
     return this.httpClient.get(`${environment.users_url}${id}`).pipe(map(data => data))
   }
+
+  public tryLogin(body): Observable<any>{
+    return this.httpClient.post(`${environment.auth_url}login`, body).pipe(map(data => data))
+  }
 }

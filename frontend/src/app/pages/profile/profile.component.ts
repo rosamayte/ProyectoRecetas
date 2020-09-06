@@ -12,7 +12,8 @@ import { environment } from 'src/environments/environment';
 export class ProfileComponent implements OnInit {
 
   public user = null;
-  public imagesUrl = environment.images_url;
+  public imagesUrlUsers = `${environment.images_url}users/`;
+  public imagesUrlRecipes = `${environment.images_url}recipes/`;
   public showdata: Array<Array<any>> = [];
   private apidata: Array<any>;
   public quantity: number;

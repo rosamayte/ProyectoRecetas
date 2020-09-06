@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.appService.userid.subscribe((id) => {
+    this.appService.tokenObs.subscribe((id) => {
       console.log(id)
       this.login = id;
     })

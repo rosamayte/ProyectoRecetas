@@ -15,7 +15,7 @@ export class SearchUsersComponent implements OnInit {
   public showdata: Array<Array<any>> = [];
   public quantity: number;
   //  
-  public imagesUrl = environment.images_url;
+  public imagesUrlUsers = `${environment.images_url}users/`;
   public user = null;
 
   constructor(

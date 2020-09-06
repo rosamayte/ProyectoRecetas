@@ -31,7 +31,7 @@
     <div class="col-md-2 py-3 border-bottom border-dark">Go to recipe</div>
   </div>
   <div class="row" *ngFor="let item of showdata[pagination.page]; let i=index">
-    <div class="col-1 py-1 border-right"><img class="rounded-lg" src="{{imagesUrl+item.picture}}" width="65px"
+    <div class="col-1 py-1 border-right"><img class="rounded-lg" src="{{imagesUrlRecipes+item.picture}}" width="65px"
         height="65px" alt=""></div>
     <div class="col-2 text-center center border-right border-dark"><span class="">{{item.name}}</span></div>
     <div class="col-7 px-2 text-truncate center border-right border-dark">{{item.description}}</div>
