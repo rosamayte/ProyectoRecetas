@@ -1,15 +1,22 @@
 <div class="container">
   <div class="row m-2">
-    <h1>{{user.name}}</h1>
+    <h1>{{showuser.name}}</h1>
   </div>
   <div class="row">
     <div class="col m-5">
-      <img src="{{imagesUrlUsers+user.image}}" width="306px" height="306px" alt="" class="rounded-circle">
+      <div class="image-container">
+        <img src="{{imagesUrlUsers+showuser.image}}" width="306px" height="306px" alt="" class="rounded-circle image">
+        <div class="middle">
+          <button type="button" class="mybtn image-text" data-toggle="modal" data-target="#exampleModal">
+            <i class="far fa-edit"></i>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="col m-2">
       <h3>My Networks</h3>
       <ul class="list-group m-3">
-        <li class="list-group-item background-transparent" *ngFor="let item of user.networks">
+        <li class="list-group-item background-transparent" *ngFor="let item of showuser.networks">
           {{item}}
         </li>
       </ul>
@@ -21,12 +28,16 @@
     </div>
     <div class="w-100"></div>
     <div class="col m-3">
-      {{user.info}}
+      {{showuser.info}}
     </div>
   </div>
   <div class="row">
     <div class="col m-2">
       <h2>My Recipes</h2>
+    </div>
+    <div class="w-100"></div>
+    <div class="col">
+      <button>Algo</button>
     </div>
     <div class="w-100"></div>
     <div class="col m-2">
@@ -47,8 +58,8 @@
           <div class="col-md-2 py-3 border-bottom border-dark">Go to recipe</div>
         </div>
         <div class="row" *ngFor="let item of showdata[pagination.page]; let i=index">
-          <div class="col-1 py-1 border-right"><img class="rounded-lg" src="{{imagesUrlRecipes+item.picture}}" width="65px"
-              height="65px" alt=""></div>
+          <div class="col-1 py-1 border-right"><img class="rounded-lg" src="{{imagesUrlRecipes+item.picture}}"
+              width="65px" height="65px" alt=""></div>
           <div class="col-2 text-center center border-right border-dark"><span class="">{{item.name}}</span></div>
           <div class="col-7 px-2 text-truncate center border-right border-dark">{{item.description}}</div>
           <div class="col-2 text-center center">
@@ -68,4 +79,28 @@
           (click)="changePage(true)"><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></a></li>
     </ul>
   </nav>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Profile Picture</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img [src]="imageUrl" alt="" *ngIf="imageUrl">
+        <form [formGroup]="editImageForm">
+          <input type="file" id="avatar" name="avatar"  formControlName="image" (change)="showPreview($event)">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="showForm()">Test</button>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Update</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -29,4 +29,8 @@ export class RecipesService {
   public voteUp = (body) => {
     return this.httpClient.patch(`${this.url}voteup`, body).pipe(map(data => data));
   }
+
+  public getRecipesTop = ()=>{
+    return this.httpClient.get(`${this.url}top/6`).pipe(map(data => data));
+  }
 }

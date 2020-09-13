@@ -22,6 +22,23 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.appService.tokenObs.subscribe(t =>{
+    //   console.log(t);
+    //   if(!t) return;
+    //   this.userService.getProfile().subscribe((data2: any) => {
+    //     this.appService.updateUser(data2.body)
+    //     // Swal.fire('Welcome', '', 'success')
+    //     this.router.navigate(['/']);
+    //   }, error => {
+    //     this.appService.updateUser(null)
+    //     // Swal.fire('Login Error', '', 'error')
+    //     Swal.fire('Session expired', 'Login again', 'error')
+    //   })
+    // }/*, error => {
+    //   this.appService.updateUser(null)
+    //   Swal.fire('Session expired', 'Login again', 'error')
+    // }*/)
+
     this.loginForm = this.formBuilder.group({
       name: new FormControl(''),
       password: new FormControl(''),
@@ -33,10 +50,16 @@ export class LoginComponent implements OnInit {
     // TODO: conectar con restapi conseguir jwt
     this.userService.tryLogin(this.loginForm.value).subscribe(data => {
       this.appService.login(data.body.access_token, this.loginForm.value.keepSession);
-      Swal.fire('Welcome','','success')
-      this.router.navigate(['/']);
-    }, error =>{
-      Swal.fire('Login Error','','error')
+      this.userService.getProfile().subscribe((data2: any) => {
+        this.appService.updateUser(data2.body)
+        Swal.fire('Welcome', '', 'success')
+        this.router.navigate(['/']);
+      }, error => {
+        this.appService.updateUser(null)
+        Swal.fire('Login Error', '', 'error')
+      })
+    }, error => {
+      Swal.fire('Login Error', '', 'error')
     })
     console.log(this.loginForm.value);
   }

@@ -91,7 +91,7 @@ export class RecipesController {
     });
   }
 
-  @Get('top/:top')
+  @Get(['top/:top','top'])
   async getTopN(
     @Param('top') top: number,
     @Res() res: Response

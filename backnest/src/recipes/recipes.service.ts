@@ -22,7 +22,23 @@ export class RecipesService {
   }
 
   async getTopN(top: number = 5): Promise<Array<Recipe>> {
-    return this.recipeModel.find({ top }).exec()
+    const recipes = await this.getAllRecipes()
+    let recipesStars = []
+    recipes.forEach(r => {
+      recipesStars.push({ id: r._id, s: r.votes[1] > 0 ? r.votes[0] / r.votes[1] : -1 })
+    })
+    recipesStars.sort((a, b) => a.s > b.s ? -1 : a.s === b.s ? 0 : 1)
+    recipesStars = recipesStars.slice(0, top)
+    const topRecipes = []
+    await recipesStars.forEach(rs => {
+      for (const r of recipes) {
+        if (rs.id === r._id) {
+          topRecipes.push(r);
+          break;
+        }
+      }
+    })
+    return topRecipes
   }
 
   async getRecipesByUser(owner: string): Promise<Array<Recipe>> {
@@ -48,8 +64,8 @@ export class RecipesService {
     // await nv[1]++;
     // r.votes = nv
     // return await this.recipeModel.findByIdAndUpdate(id,r).exec();
-    r.votes.set(0,r.votes[0]+v);
-    r.votes.set(1,r.votes[1]+1);
+    r.votes.set(0, r.votes[0] + v);
+    r.votes.set(1, r.votes[1] + 1);
     return await r.save();
   }
 

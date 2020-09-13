@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public login;
+  public user = null;
 
   constructor(
     private appService: AppService,
@@ -16,9 +16,11 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.appService.tokenObs.subscribe((id) => {
-      console.log(id)
-      this.login = id;
+    this.appService.userObs.subscribe((u) => {
+      console.log(u)
+      this.user = u;
+    }, error =>{
+      this.user = null;
     })
   }
   logout() {

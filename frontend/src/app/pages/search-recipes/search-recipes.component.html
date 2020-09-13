@@ -1,55 +1,60 @@
-<div class="row">
-  <div class="col-1"></div>
-  <div class="col-3">
-    Showing &nbsp;
-    <div class="btn-group">
-      <button class="btn btn-sm dropdown-toggle border border-dark rounded" style="background-color: transparent;"
-        type="button" data-toggle="dropdown">{{ pagination.size }}</button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" *ngFor="let size of sizes" (click)="changeSize(size)"><span
-            style="cursor: pointer;">{{ size }}</span></a>
+<ng-container *ngIf="this.quantity > 0; else elseTemplate">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-3">
+      Showing &nbsp;
+      <div class="btn-group">
+        <button class="btn btn-sm dropdown-toggle border border-dark rounded" style="background-color: transparent;"
+          type="button" data-toggle="dropdown">{{ pagination.size }}</button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" *ngFor="let size of sizes" (click)="changeSize(size)"><span
+              style="cursor: pointer;">{{ size }}</span></a>
+        </div>
+      </div>
+      &nbsp;of {{ quantity }} elements.
+    </div>
+    <div class="col-4"></div>
+    <div class="col-1 search-tag text-center rounded-left center">Search</div>
+    <div class="col-2 search-box border border-dark rounded-right p-0">
+      <input type="text" [(ngModel)]="searchText" class="my-1 form-control bg-transparent border-0 ar"
+        (ngModelChange)='search($event)' placeholder="&#xF002;" style="font-family:Arial, FontAwesome">
+    </div>
+    <div class="col-1"></div>
+  </div>
+  <br>
+  
+  
+  <div class="container shadow-lg rounded mb-3" style="border: 1px black solid;">
+    <div class="row thead text-center">
+      <!-- <div class="col-md-1 py-3 border-bottom border-right border-dark"></div> -->
+      <div class="col-md-3 py-3 border-bottom border-right border-dark">Name</div>
+      <div class="col-md-7 py-3 border-bottom border-right border-dark">Description</div>
+      <div class="col-md-2 py-3 border-bottom border-dark">Go to recipe</div>
+    </div>
+    <div class="row" *ngFor="let item of showdata[pagination.page]; let i=index">
+      <div class="col-1 py-1 border-right"><img class="rounded-lg" src="{{imagesUrlRecipes+item.picture}}" width="65px"
+          height="65px" alt=""></div>
+      <div class="col-2 text-center center border-right border-dark"><span class="">{{item.name}}</span></div>
+      <div class="col-7 px-2 text-truncate center border-right border-dark">{{item.description}}</div>
+      <div class="col-2 text-center center">
+        <button class="btn btn-dark" (click)="goToRecipe(item._id)"><i class="fas fa-chevron-circle-right"></i></button>
       </div>
     </div>
-    &nbsp;of {{ quantity }} elements.
   </div>
-  <div class="col-4"></div>
-  <div class="col-1 search-tag text-center rounded-left center">Search</div>
-  <div class="col-2 search-box border border-dark rounded-right p-0">
-    <input type="text" [(ngModel)]="searchText" class="my-1 form-control bg-transparent border-0 ar"
-      (ngModelChange)='search($event)' placeholder="&#xF002;" style="font-family:Arial, FontAwesome">
-  </div>
-  <div class="col-1"></div>
-</div>
-<br>
-
-
-<div class="container shadow-lg rounded mb-3" style="border: 1px black solid;">
-  <div class="row thead text-center">
-    <!-- <div class="col-md-1 py-3 border-bottom border-right border-dark"></div> -->
-    <div class="col-md-3 py-3 border-bottom border-right border-dark">Name</div>
-    <div class="col-md-7 py-3 border-bottom border-right border-dark">Description</div>
-    <div class="col-md-2 py-3 border-bottom border-dark">Go to recipe</div>
-  </div>
-  <div class="row" *ngFor="let item of showdata[pagination.page]; let i=index">
-    <div class="col-1 py-1 border-right"><img class="rounded-lg" src="{{imagesUrlRecipes+item.picture}}" width="65px"
-        height="65px" alt=""></div>
-    <div class="col-2 text-center center border-right border-dark"><span class="">{{item.name}}</span></div>
-    <div class="col-7 px-2 text-truncate center border-right border-dark">{{item.description}}</div>
-    <div class="col-2 text-center center">
-      <button class="btn btn-dark" (click)="goToRecipe(item._id)"><i class="fas fa-chevron-circle-right"></i></button>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item" [ngClass]="{'disabled': pagination.page === 0}"><a class="page-link" tabindex="-1"
-        (click)="changePage(false)"><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></a></li>
-    <li class="page-item"><a class="page-link">{{ pagination.page + 1 }} of {{ showdata.length }}</a></li>
-    <li class="page-item" [ngClass]="{'disabled': pagination.page >= showdata.length - 1}"><a class="page-link"
-        (click)="changePage(true)"><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></a></li>
-  </ul>
-</nav>
+  
+  
+  
+  
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [ngClass]="{'disabled': pagination.page === 0}"><a class="page-link" tabindex="-1"
+          (click)="changePage(false)"><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></a></li>
+      <li class="page-item"><a class="page-link">{{ pagination.page + 1 }} of {{ showdata.length }}</a></li>
+      <li class="page-item" [ngClass]="{'disabled': pagination.page >= showdata.length - 1}"><a class="page-link"
+          (click)="changePage(true)"><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></a></li>
+    </ul>
+  </nav>
+</ng-container>
+<ng-template #elseTemplate>
+  No recetas
+</ng-template>
