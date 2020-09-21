@@ -6,11 +6,17 @@ export class User extends Document {
 
   @Prop({
     type: String,
-    unique: true,
     required: true
   })
   name;
 
+  @Prop({
+    type: String,
+    unique: true,
+    required: true
+  })
+  email;
+  
   @Prop({
     // type: [mongoose.Schema.Types.ObjectId],
     type: [String],

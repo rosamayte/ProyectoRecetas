@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UsersModule } from './users.module';
+import { IUser } from 'src/interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
@@ -12,7 +13,7 @@ export class UsersService {
 
   async addUser(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
-    const hp = await bcrypt.hash(createdUser.password,10);
+    const hp = await bcrypt.hash(createdUser.password, 10);
     createdUser.password = await hp;
     return createdUser.save()
   }
@@ -29,8 +30,16 @@ export class UsersService {
     return this.userModel.findById(_id).exec();
   }
 
-  async updateUser(user: User): Promise<User> {
-    return this.userModel.findByIdAndUpdate(user._id, user).exec();
+  async updateUser(user: IUser): Promise<User> {
+    // return this.userModel.findByIdAndUpdate(user._id, user).exec();
+    const u = await this.userModel.findById(user._id);
+    if (!u) return null;
+    u.set(user);
+    if (user.password) {
+      const hp = await bcrypt.hash(user.password, 10);
+      u.password = hp
+    }
+    return await u.save();
   }
 
   async setImageProfile(id: string, name: string): Promise<User> {

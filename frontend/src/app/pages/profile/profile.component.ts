@@ -108,6 +108,10 @@ export class ProfileComponent implements OnInit {
   public goToRecipe(id: string) {
     this.router.navigate(['recipe', id]);
   }
+  
+  public addRecipe(){
+    this.router.navigate(['registerrecipe'])
+  }
 
   showForm(){
     console.log(this.editImageForm.value)
@@ -123,4 +127,5 @@ export class ProfileComponent implements OnInit {
     }
     reader.readAsDataURL(file)
   }
+
 }

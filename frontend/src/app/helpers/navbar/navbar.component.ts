@@ -17,7 +17,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.userObs.subscribe((u) => {
-      console.log(u)
       this.user = u;
     }, error =>{
       this.user = null;

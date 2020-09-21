@@ -5,6 +5,7 @@ import { Response, Request } from 'express';
 import { data } from 'src/app.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { IUser } from 'src/interfaces/user.interface';
 
 @Controller('users')
 export class UsersController {
@@ -81,7 +82,7 @@ export class UsersController {
 
   @Patch()
   async updateUser(
-    @Body() body: User,
+    @Body() body: IUser,
     @Res() res: Response
   ): Promise<void> {
     this.service.updateUser(body).then((user: User) => {

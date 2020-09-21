@@ -14,7 +14,8 @@ import { SearchRecipesComponent } from './pages/search-recipes/search-recipes.co
 import { NavbarComponent } from './helpers/navbar/navbar.component';
 import { SearchUsersComponent } from './pages/search-users/search-users.component';
 import { HttpClientModule } from '@angular/common/http';
-import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2'
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2'
     ViewRecipeComponent,
     SearchRecipesComponent,
     NavbarComponent,
-    SearchUsersComponent
+    SearchUsersComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

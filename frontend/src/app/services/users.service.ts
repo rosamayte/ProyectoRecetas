@@ -42,7 +42,11 @@ export class UsersService {
     return this.httpClient.post(`${environment.auth_url}login`, body).pipe(map(data => data))
   }
 
-  public getProfile(){
-    return this.httpClient.get(`${environment.auth_url}profile`, { headers: { Authorization: `Bearer ${this.token}`}}).pipe(map(data => data))
+  public getProfile() {
+    return this.httpClient.get(`${environment.auth_url}profile`, { headers: { Authorization: `Bearer ${this.token}` } }).pipe(map(data => data))
+  }
+
+  public updateProfile(body) {
+    return this.httpClient.patch(`${environment.users_url}`, body, { headers: { Authorization: `Bearer ${this.token}` } }).pipe(map(data => data))
   }
 }

@@ -8,12 +8,16 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SearchRecipesComponent } from './pages/search-recipes/search-recipes.component';
 import { ViewRecipeComponent } from './pages/view-recipe/view-recipe.component';
 import { SearchUsersComponent } from './pages/search-users/search-users.component';
+import { RegisterRecipeComponent } from './pages/register-recipe/register-recipe.component';
+import {EditProfileComponent} from './pages/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: '', component: MainComponent },
   { path: 'register', component: RegisterUserComponent },
+  { path: 'registerrecipe', component: RegisterRecipeComponent },
   { path: 'profile/:id', component: ProfileComponent },
+  { path: 'editprofile/:id', component: EditProfileComponent},
   { path: 'recipes', component: SearchRecipesComponent },
   { path: 'users', component: SearchUsersComponent },
   { path: 'recipe/:id', component: ViewRecipeComponent },

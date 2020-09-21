@@ -16,7 +16,7 @@ import { UploadModule } from './upload/upload.module';
     UsersModule,
     AuthModule,
     ServeStaticModule.forRoot({rootPath: join(__dirname,'..','public')}),
-    MongooseModule.forRoot('mongodb://localhost:27017/recipes', 
+    MongooseModule.forRoot('mongodb://localhost:27017/recipes2', 
     {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}),
     UploadModule
   ],

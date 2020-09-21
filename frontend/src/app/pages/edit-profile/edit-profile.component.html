@@ -1,0 +1,48 @@
+<div class="container">
+  <h1>Edit Profile</h1>
+  <div class="row m-2">
+    <div class="col">
+      <h3>Networks</h3>
+    </div>
+  </div>
+  <div class="row m-2" *ngFor="let item of nullarray; let i=index">
+    <div class="col">
+      <input class="form-control" type="text" placeholder="example@exmple.com" [(ngModel)]="net[i]">
+    </div>
+  </div>
+  <div class="row m-2">
+    <div class="col-1">
+      <button class="btn btn-dark" (click)="addRow()">Add</button>
+    </div>
+    <div class="col-1" *ngIf="net.length > 1">
+      <button class="btn btn-dark" (click)="removeRow()">Remove</button>
+    </div>
+    <div class="col-10"></div>
+  </div>
+  <div class="row m-2">
+    <div class="col">
+      <h3>Info</h3>
+    </div>
+    <div class="w-100"></div>
+    <div class="col">
+      <textarea class="form-control" rows="4" placeholder="My info" [(ngModel)]="info"></textarea>
+    </div>
+  </div>
+    <h3>Change Password</h3>
+    <div class="row m-2">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Password"
+          [ngClass]="{'is-valid': cpassword === password , 'is-invalid': cpassword !== password }"
+          [(ngModel)]="password">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Confirm Password"
+          [ngClass]="{'is-valid': cpassword === password , 'is-invalid': cpassword !== password }"
+          [(ngModel)]="cpassword">
+      </div>
+    </div>
+  <div class="m-2">
+    <button class="btn btn-dark" [disabled]="cpassword !== password "
+      (click)="updateProfile()">Update</button>
+  </div>
+</div>

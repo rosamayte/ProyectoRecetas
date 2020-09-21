@@ -1,1 +1,60 @@
-<p>register-recipe works!</p>
+<div class="container">
+  <div class="row m-2 mb-5">
+    <h1>Add Your Recipe</h1>
+  </div>
+  <div class="row m-2">
+    <div class="col-3">
+      <h3>Recipe Name:</h3>
+    </div>
+    <div class="col-9 form-group">
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="My recipe" [(ngModel)]="name"></textarea>
+    </div>
+  </div>
+  <div class="row m-2">
+    <div class="col-3">
+      <h3>Image:</h3>
+    </div>
+    <div class="col-9">
+      <input type="file" id="myFile" name="filename" [(ngModel)]="image">
+    </div>
+  </div>
+  <div class="row m-2">
+    <div class="col-3">
+      <h3>Description: </h3>
+    </div>
+    <div class="col-9">
+      <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" [(ngModel)]="description"></textarea>
+    </div>
+  </div>
+  <div class="row m-2" *ngFor="let q of larr; let i=index">
+    <div class="col-3">
+      <h3>Ingredient {{i+1}}:</h3>
+    </div>
+    <div class="col-2">
+      <input class="form-control" type="number" value="1" min="0.01" step="0.01" id="example-number-input" [(ngModel)]="quantity[i]">
+    </div>
+    <div class="col-7">
+      <textarea class="form-control" id="exampleFormControlTextarea2" rows="1" placeholder="tbsp. sugar" [(ngModel)]="rname[i]"></textarea>
+    </div>
+  </div>
+  <div class="row m-2">
+    <div [ngClass]="{'col-11': larr.length < 2, 'col-10': larr.length > 1}"></div>
+    <div class="col-1">
+      <button class="btn btn-dark" (click)="addRow()">Add</button>
+    </div>
+    <div class="col-1" *ngIf="larr.length > 1">
+      <button class="btn btn-dark" (click)="removeRow()">Remove</button>
+    </div>
+  </div>
+  <div class="row m-2">
+    <div class="col-3">
+      <h3>Steps: </h3>
+    </div>
+    <div class="col-9">
+      <textarea class="form-control" id="exampleFormControlTextarea2" rows="3" [(ngModel)]="steps"></textarea>
+    </div>
+  </div>
+  <div class="row m-3">
+    <button class="ml-md-auto btn btn-dark" (click)="create()">Create</button>
+  </div>
+</div>

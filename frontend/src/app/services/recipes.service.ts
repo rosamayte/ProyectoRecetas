@@ -33,4 +33,8 @@ export class RecipesService {
   public getRecipesTop = ()=>{
     return this.httpClient.get(`${this.url}top/6`).pipe(map(data => data));
   }
+
+  public createRecipe = (body) =>{
+    return this.httpClient.post(`${this.url}`, body).pipe(map(data => data));
+  }
 }
